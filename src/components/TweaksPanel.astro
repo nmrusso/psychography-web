@@ -1,0 +1,42 @@
+<div class="tweaks" id="tweaks">
+  <div class="tweaks__header">
+    <span>Tweaks</span>
+    <button onclick="document.getElementById('tweaks').classList.remove('open')" style="color:var(--text-muted);font-size:18px;line-height:1">✕</button>
+  </div>
+
+  <div class="tweaks__row">
+    <label data-i18n="tweaks.palette">Accent palette</label>
+    <div class="tweaks__opts" data-group="theme">
+      <button class="tweaks__opt active" data-val="gold">Gold</button>
+      <button class="tweaks__opt" data-val="violet">Violet</button>
+      <button class="tweaks__opt" data-val="red">Red</button>
+    </div>
+  </div>
+
+  <div class="tweaks__row">
+    <label data-i18n="tweaks.hero-bg">Hero background</label>
+    <div class="tweaks__opts" data-group="hero-bg">
+      <button class="tweaks__opt active" data-val="band">Band</button>
+      <button class="tweaks__opt" data-val="poster">Poster</button>
+      <button class="tweaks__opt" data-val="still">Still</button>
+    </div>
+  </div>
+
+  <div class="tweaks__row">
+    <label data-i18n="tweaks.hero-title">Hero title</label>
+    <div class="tweaks__opts" data-group="title-style">
+      <button class="tweaks__opt active" data-val="mixed">Mixed</button>
+      <button class="tweaks__opt" data-val="italic">Italic</button>
+      <button class="tweaks__opt" data-val="outline">Outline</button>
+    </div>
+  </div>
+
+  <div class="tweaks__row">
+    <label data-i18n="tweaks.cursor">Custom cursor</label>
+    <div class="tweaks__opts" data-group="cursor">
+      <button class="tweaks__opt active" data-val="on">On</button>
+      <button class="tweaks__opt" data-val="off">Off</button>
+      <button class="tweaks__opt" data-val="dot">Dot</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,371 @@
+---
+import Nav from '../components/Nav.astro';
+import TweaksPanel from '../components/TweaksPanel.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Psychography — Progressive Metal / Thall',
+  description = 'Psychography — Progressive Metal / Thall. Buenos Aires, Argentina. Est. 2020. Distributed by Arson Theory.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- FX LAYERS -->
+<canvas id="fx-3d" aria-hidden="true"></canvas>
+<canvas id="fx-particles" aria-hidden="true"></canvas>
+
+<!-- Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<Nav />
+<slot />
+<TweaksPanel />
+
+<!-- I18N TRANSLATIONS -->
+<script is:inline>
+const I18N = {
+  en: {
+    "nav.about": "Band",
+    "nav.members": "Members",
+    "nav.music": "Music",
+    "nav.video": "Video",
+    "nav.press": "Press",
+    "nav.shows": "Shows",
+    "nav.contact": "Contact",
+
+    "hero.coord.label": "OFFICIAL&nbsp;MUSIC&nbsp;VIDEO",
+    "hero.sub": "Progressive&nbsp;Metal / Thall from Buenos Aires. Five singles released, mentored by Dan&nbsp;Sugarman (Ice&nbsp;Nine&nbsp;Kills) and the first Argentine band on the Arson&nbsp;Theory distributor.",
+    "hero.cta": "Listen",
+    "hero.ticker": 'Screams In The Mind <span class="dot">◆</span> Music Video 2026 <span class="dot">◆</span> Progressive Metal <span class="dot">◆</span> Thall <span class="dot">◆</span> Buenos Aires <span class="dot">◆</span> Arson Theory <span class="dot">◆</span> Under The Wing <span class="dot">◆</span> Est. 2020 <span class="dot">◆</span>',
+
+    "about.kicker": "02 — The Band",
+    "about.title": "From darkness<br>to the <em>light</em>.",
+    "about.p1": "Psychography was born as a band project in 2020 in the city of Buenos&nbsp;Aires, Argentina, founded by Yanina&nbsp;Islas (Vocals). Their songs reflect a blend of different metal subgenres, creating a progressive-tinged atmosphere that moves between Metalcore and Thall.",
+    "about.p2": "With five singles released, a feature on <em>Under&nbsp;The&nbsp;Wing</em> by Dan&nbsp;Sugarman (Ice&nbsp;Nine&nbsp;Kills), and being the first Argentine band on the Arson&nbsp;Theory distributor, Psychography has consolidated its sonic identity.",
+    "about.p3": "In 2026 they premiered the official music video for <em>Screams&nbsp;In&nbsp;The&nbsp;Mind</em>.",
+    "about.founded": "Founded",
+    "about.location": "Location",
+    "about.genre-label": "Genre",
+    "about.genre-val": "Modern Metal",
+    "about.img-label": "01 — Movie Poster · 2026",
+
+    "members.kicker": "03 — The Band",
+    "members.title": "Meet the<br><em>members</em>.",
+    "member.1.role": "Vocals & Lyrics",
+    "member.1.quote": '<em>"Darkness and light coexist in every note we sing."</em>',
+    "member.2.role": "Guitar · Composition · Production",
+    "member.2.quote": '<em>"Every riff is an ancestral prayer."</em>',
+    "member.3.role": "Guitar",
+    "member.3.quote": '<em>"Sound is the bridge between the spiritual and the material."</em>',
+
+    "music.kicker": "04 — Discography",
+    "music.title": "Latest <em>single</em><br>2025.",
+    "music.desc": "Official music video released in 2026 with a special drum performance by Martin&nbsp;Blanco of the band Againts. Distributed by Arson&nbsp;Theory.",
+    "music.releases": "Releases",
+
+    "video.label": "Official Music Video · 2026",
+    "video.caption": "Featuring a special drum performance by Martin Blanco (Againts)",
+    "video.play": "Play music video",
+
+    "press.kicker": "05 — Artist Mentions",
+    "press.title": "<em>International</em><br>recognition.",
+    "press.1.role": "Guitarist · Ice Nine Kills",
+    "press.2.quote": "Adriel&nbsp;Thall selected as a <em>special winner</em> for his unique creative approach, receiving a Neural&nbsp;DSP plugin.",
+    "press.3.source": "◆ Social Mention",
+    "press.3.quote": "Adriel&nbsp;Thall featured on the official <em>Odeholm&nbsp;Audio</em> account for his guitar talent.",
+    "press.4.source": "◆ Program",
+    "press.4.quote": "Featured on <em>Under&nbsp;The&nbsp;Wing</em> — mentorship program by Dan&nbsp;Sugarman (Ice&nbsp;Nine&nbsp;Kills).",
+    "press.5.source": "◆ Milestone",
+    "press.5.quote": "<em>First Argentine band</em> on the Arson&nbsp;Theory distributor.",
+    "press.5.role": "Distributor",
+    "press.6.source": "◆ Press",
+    "press.6.quote": "Coverage on Rocktámbulos, Rock&nbsp;Peperina and #TalentoxSudamerica with Angel&nbsp;Callejero.",
+    "press.6.by": "Media",
+
+    "shows.kicker": "07 — Upcoming Shows",
+    "shows.title": "Coming soon,<br><em>live</em>.",
+    "shows.empty.kicker": "— No dates announced",
+    "shows.empty.title": "We're preparing<br>our <em>first shows</em>.",
+    "shows.empty.desc": "We don't have confirmed dates yet. Sign up by email or follow us on social media to be among the first to know when we announce our first live show.",
+    "shows.empty.cta": "Let me know when there's a date",
+
+    "contact.kicker": "08 — Contact",
+    "contact.title": "Speak to<br>the <em>silence</em>.",
+    "contact.intro": "Management, booking, press and collaborations. Direct contact with Yanina&nbsp;Islas, founder of the band. Distributed by Arson&nbsp;Theory.",
+    "contact.networks": "Social",
+    "contact.management": "Management & Booking",
+    "contact.founder": "Founder · Direct contact",
+    "footer.distributed": "Distributed by Arson Theory",
+
+    "tweaks.palette": "Accent palette",
+    "tweaks.hero-bg": "Hero background",
+    "tweaks.hero-title": "Hero title",
+    "tweaks.cursor": "Custom cursor"
+  },
+  es: {
+    "nav.about": "Banda",
+    "nav.members": "Integrantes",
+    "nav.music": "Música",
+    "nav.video": "Video",
+    "nav.press": "Prensa",
+    "nav.shows": "Shows",
+    "nav.contact": "Contacto",
+
+    "hero.coord.label": "VIDEOCLIP&nbsp;OFICIAL",
+    "hero.sub": "Progressive&nbsp;Metal / Thall desde Buenos Aires. Cinco singles publicados, mentoría de Dan&nbsp;Sugarman (Ice&nbsp;Nine&nbsp;Kills) y primera banda argentina en la distribuidora Arson&nbsp;Theory.",
+    "hero.cta": "Escuchar",
+    "hero.ticker": 'Screams In The Mind <span class="dot">◆</span> Videoclip 2026 <span class="dot">◆</span> Progressive Metal <span class="dot">◆</span> Thall <span class="dot">◆</span> Buenos Aires <span class="dot">◆</span> Arson Theory <span class="dot">◆</span> Under The Wing <span class="dot">◆</span> Est. 2020 <span class="dot">◆</span>',
+
+    "about.kicker": "02 — La Banda",
+    "about.title": "De las tinieblas<br>a la <em>luz</em>.",
+    "about.p1": "Psychography nace como proyecto de banda en el año 2020 desde la ciudad de Buenos&nbsp;Aires, Argentina, fundada por Yanina&nbsp;Islas (Voz). En sus canciones se refleja la combinación de distintos subgéneros del metal, creando así una atmósfera de tinte progresivo que navega entre el Metalcore y Thall.",
+    "about.p2": "Con cinco singles publicados, la participación en <em>Under&nbsp;The&nbsp;Wing</em> de Dan&nbsp;Sugarman (Ice&nbsp;Nine&nbsp;Kills) y siendo la primera banda argentina en la distribuidora Arson&nbsp;Theory, Psychography ha consolidado su identidad sonora.",
+    "about.p3": "En 2026 estrenaron el videoclip oficial de <em>Screams&nbsp;In&nbsp;The&nbsp;Mind</em>.",
+    "about.founded": "Fundación",
+    "about.location": "Ubicación",
+    "about.genre-label": "Género",
+    "about.genre-val": "Metal Moderno",
+    "about.img-label": "01 — Movie Poster · 2026",
+
+    "members.kicker": "02 — La Banda",
+    "members.title": "Conocé a<br>los <em>miembros</em>.",
+    "member.1.role": "Voz y Letras",
+    "member.1.quote": '<em>"La oscuridad y la luz conviven en cada nota que cantamos."</em>',
+    "member.2.role": "Guitarra · Composición · Producción",
+    "member.2.quote": '<em>"Cada riff es una oración ancestral."</em>',
+    "member.3.role": "Guitarra",
+    "member.3.quote": '<em>"El sonido es el puente entre lo espiritual y lo material."</em>',
+
+    "music.kicker": "04 — Discografía",
+    "music.title": "Último <em>single</em><br>2025.",
+    "music.desc": "Videoclip oficial estrenado en 2026 con la participación especial en batería de Martin&nbsp;Blanco de la banda Againts. Distribuido por Arson&nbsp;Theory.",
+    "music.releases": "Lanzamientos",
+
+    "video.label": "Videoclip Oficial · 2026",
+    "video.caption": "Con la participación especial en batería de Martin Blanco (Againts)",
+    "video.play": "Reproducir videoclip",
+
+    "press.kicker": "05 — Menciones de Artistas",
+    "press.title": "Reconocimiento<br><em>internacional</em>.",
+    "press.1.role": "Guitarrista · Ice Nine Kills",
+    "press.2.quote": "Adriel&nbsp;Thall seleccionado como <em>ganador especial</em> por su enfoque creativo único, recibiendo un plugin Neural&nbsp;DSP.",
+    "press.3.source": "◆ Mención en redes",
+    "press.3.quote": "Adriel&nbsp;Thall destacado en la cuenta oficial de <em>Odeholm&nbsp;Audio</em> por su talento en guitarra.",
+    "press.4.source": "◆ Programa",
+    "press.4.quote": "Participación en <em>Under&nbsp;The&nbsp;Wing</em> — programa de mentoría de Dan&nbsp;Sugarman (Ice&nbsp;Nine&nbsp;Kills).",
+    "press.5.source": "◆ Hito",
+    "press.5.quote": "<em>Primera banda argentina</em> en la distribuidora Arson&nbsp;Theory.",
+    "press.5.role": "Distribuidora",
+    "press.6.source": "◆ Prensa",
+    "press.6.quote": "Cobertura en Rocktámbulos, Rock&nbsp;Peperina y #TalentoxSudamerica con Angel&nbsp;Callejero.",
+    "press.6.by": "Medios",
+
+    "shows.kicker": "07 — Próximos Shows",
+    "shows.title": "Próximamente,<br>en <em>vivo</em>.",
+    "shows.empty.kicker": "— Sin fechas anunciadas",
+    "shows.empty.title": "Estamos preparando<br>nuestros <em>primeros shows</em>.",
+    "shows.empty.desc": "Todavía no tenemos fechas confirmadas. Suscribite por mail o seguinos en redes y vas a ser de los primeros en enterarte cuando anunciemos el primer show en vivo.",
+    "shows.empty.cta": "Avisame cuando haya fecha",
+
+    "contact.kicker": "08 — Contacto",
+    "contact.title": "Hablale<br>al <em>silencio</em>.",
+    "contact.intro": "Management, booking, prensa y colaboraciones. Contacto directo con Yanina&nbsp;Islas, fundadora de la banda. Distribuidos por Arson&nbsp;Theory.",
+    "contact.networks": "Redes",
+    "contact.management": "Management & Booking",
+    "contact.founder": "Fundadora · Contacto directo",
+    "footer.distributed": "Distribuido por Arson Theory",
+
+    "tweaks.palette": "Paleta de acento",
+    "tweaks.hero-bg": "Hero background",
+    "tweaks.hero-title": "Título hero",
+    "tweaks.cursor": "Cursor custom"
+  }
+};
+
+const LANG_KEY = 'psy_lang';
+function getLang() {
+  try { return localStorage.getItem(LANG_KEY) || 'en'; } catch(e) { return 'en'; }
+}
+function setLang(lang) {
+  if (lang !== 'en' && lang !== 'es') lang = 'en';
+  const dict = I18N[lang];
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] != null) el.textContent = decodeEntities(dict[key]);
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (dict[key] != null) el.innerHTML = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+    const key = el.getAttribute('data-i18n-aria-label');
+    if (dict[key] != null) el.setAttribute('aria-label', decodeEntities(dict[key]));
+  });
+
+  const btn = document.getElementById('langToggle');
+  if (btn) {
+    btn.setAttribute('data-lang', lang);
+    btn.setAttribute('aria-label', lang === 'en' ? 'Switch to Spanish' : 'Cambiar a inglés');
+    btn.setAttribute('title', lang === 'en' ? 'Switch to Spanish' : 'Cambiar a inglés');
+  }
+
+  try { localStorage.setItem(LANG_KEY, lang); } catch(e) {}
+}
+function decodeEntities(html) {
+  const t = document.createElement('textarea');
+  t.innerHTML = html;
+  return t.value;
+}
+
+setLang(getLang());
+
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('langToggle');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const next = getLang() === 'en' ? 'es' : 'en';
+    setLang(next);
+  });
+});
+</script>
+
+<!-- MAIN SCRIPTS: tweaks, nav scroll, reveal, cursor -->
+<script is:inline>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": "violet",
+  "hero-bg": "poster",
+  "title-style": "outline",
+  "cursor": "on"
+}/*EDITMODE-END*/;
+
+/* ---------- NAV scroll ---------- */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+/* ---------- Reveal on scroll ---------- */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('is-visible');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ---------- Cursor ---------- */
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let rx = 0, ry = 0, dx = 0, dy = 0;
+window.addEventListener('mousemove', (e) => {
+  dx = e.clientX; dy = e.clientY;
+  dot.style.transform = `translate(${dx}px, ${dy}px) translate(-50%,-50%)`;
+});
+function rafRing() {
+  rx += (dx - rx) * 0.18;
+  ry += (dy - ry) * 0.18;
+  ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+  requestAnimationFrame(rafRing);
+}
+rafRing();
+document.querySelectorAll('a, button, .press-card, .member, .show, .music__cover').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+});
+
+/* ---------- Tweaks ---------- */
+const state = { ...TWEAK_DEFAULTS };
+
+function applyTweaks() {
+  document.body.classList.remove('theme-violet', 'theme-red');
+  if (state.theme === 'violet') document.body.classList.add('theme-violet');
+  if (state.theme === 'red') document.body.classList.add('theme-red');
+
+  const bg = document.querySelector('.hero__bg');
+  const map = { band: 'assets/band-hero.webp', poster: 'assets/poster-movie.webp', still: 'assets/screams-still.webp' };
+  bg.style.backgroundImage = `url('${map[state['hero-bg']]}')`;
+
+  const t = document.querySelector('.hero__title');
+  if (t && !t.classList.contains('hero__title--logo')) {
+    if (state['title-style'] === 'italic') {
+      t.innerHTML = '<em>Psycho<span style="font-style:italic">graphy</span></em>';
+      t.style.fontStyle = 'italic';
+    } else if (state['title-style'] === 'outline') {
+      t.innerHTML = '<span class="outlined">Psycho</span><em>graphy</em>';
+      t.style.fontStyle = 'normal';
+    } else {
+      t.innerHTML = '<span class="thin">Psycho</span><em>graphy</em>';
+      t.style.fontStyle = 'normal';
+    }
+  }
+
+  const d = document.getElementById('cursorDot');
+  const r = document.getElementById('cursorRing');
+  if (state.cursor === 'off') { d.style.display = 'none'; r.style.display = 'none'; }
+  else if (state.cursor === 'dot') { d.style.display = 'block'; r.style.display = 'none'; }
+  else { d.style.display = 'block'; r.style.display = 'block'; }
+
+  if (window.PsyFX) window.PsyFX.setLevel('full');
+
+  document.querySelectorAll('.tweaks__opts').forEach(group => {
+    const key = group.dataset.group;
+    group.querySelectorAll('.tweaks__opt').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.val === state[key]);
+    });
+  });
+}
+applyTweaks();
+
+document.querySelectorAll('.tweaks__opts').forEach(group => {
+  const key = group.dataset.group;
+  group.querySelectorAll('.tweaks__opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state[key] = btn.dataset.val;
+      applyTweaks();
+      try {
+        window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: btn.dataset.val } }, '*');
+      } catch (e) {}
+    });
+  });
+});
+
+/* ---------- Tweaks host hooks ---------- */
+window.addEventListener('message', (e) => {
+  const d = e.data || {};
+  if (d.type === '__activate_edit_mode') document.getElementById('tweaks').classList.add('open');
+  if (d.type === '__deactivate_edit_mode') document.getElementById('tweaks').classList.remove('open');
+});
+try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch(e) {}
+</script>
+
+<script src="/fx.js" defer></script>
+
+</body>
+</html>

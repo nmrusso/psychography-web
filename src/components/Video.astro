@@ -1,0 +1,57 @@
+<section class="video" id="video" data-screen-label="05 Video">
+  <div class="video__stage" id="videoStage">
+    <img src="assets/screams-still.webp" alt="Screams in the Mind — videoclip still" />
+    <div class="video__overlay">
+      <button class="video__play" aria-label="Play music video" data-i18n-aria-label="video.play" onclick="playVideo()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l14 8-14 8z"/></svg>
+      </button>
+      <div class="video__caption">
+        <span class="label" data-i18n="video.label">Official Music Video · 2026</span>
+        <h3>Screams in the Mind</h3>
+        <p data-i18n="video.caption">Featuring a special drum performance by Martin Blanco (Againts)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+const YT_VIDEO_ID = 'fBPjdOMFxtw';
+const YT_WATCH_URL = 'https://www.youtube.com/watch?v=' + YT_VIDEO_ID;
+
+function playVideo() {
+  const stage = document.getElementById('videoStage');
+  if (stage.querySelector('iframe')) return;
+
+  const ifr = document.createElement('iframe');
+  const params = new URLSearchParams({
+    autoplay: '1',
+    rel: '0',
+    modestbranding: '1',
+    playsinline: '1',
+    origin: location.origin
+  });
+  ifr.src = 'https://www.youtube-nocookie.com/embed/' + YT_VIDEO_ID + '?' + params.toString();
+  ifr.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+  ifr.setAttribute('allowfullscreen', '');
+  ifr.setAttribute('frameborder', '0');
+  ifr.referrerPolicy = 'strict-origin-when-cross-origin';
+
+  stage.appendChild(ifr);
+  stage.classList.add('is-playing');
+
+  setTimeout(() => {
+    showWatchOnYouTubeHint(stage);
+  }, 1200);
+}
+
+function showWatchOnYouTubeHint(stage) {
+  if (stage.querySelector('.video__yt-hint')) return;
+  const hint = document.createElement('a');
+  hint.className = 'video__yt-hint';
+  hint.href = YT_WATCH_URL;
+  hint.target = '_blank';
+  hint.rel = 'noopener';
+  hint.textContent = '↗ Ver en YouTube';
+  stage.appendChild(hint);
+}
+</script>
